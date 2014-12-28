@@ -1,0 +1,29 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="client:jar">
+    <output-path>$PROJECT_DIR$/client_jar</output-path>
+    <root id="root">
+      <element id="archive" name="client.jar">
+        <element id="module-output" name="client" />
+      </element>
+      <element id="directory" name="libraries">
+        <element id="library" level="project" name="jinput" />
+        <element id="library" level="project" name="lwjgl" />
+        <element id="library" level="project" name="lwjgl_util" />
+        <element id="library" level="project" name="PNGDecoder" />
+        <element id="library" level="application" name="scala-library" />
+        <element id="directory" name="natives">
+          <element id="dir-copy" path="$PROJECT_DIR$/libraries/natives" />
+        </element>
+        <element id="library" level="project" name="jbullet" />
+        <element id="library" level="project" name="vecmath" />
+      </element>
+      <element id="directory" name="resources">
+        <element id="dir-copy" path="$PROJECT_DIR$/resources" />
+      </element>
+      <element id="directory" name="servers">
+        <element id="dir-copy" path="$PROJECT_DIR$/servers" />
+      </element>
+      <element id="file-copy" path="$PROJECT_DIR$/settings.gmd" />
+    </root>
+  </artifact>
+</component>

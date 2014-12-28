@@ -1,0 +1,35 @@
+version 1
+
+nodes
+    0 "root" -1
+    1 "child" 0
+end
+
+skeleton
+    time 0
+    0	0 0 0	1.570796 0 0
+    1	1 0 0	0 0 0
+    time 1
+    1	1 2 0	0 0 0
+    time 2
+    1	1 0 0	0 0 0
+end
+
+triangles
+material.smt
+    0	0 0 0	0 0 1	0 1	1 0 1
+    0	0 -1 0	0 0 1	0 0	1 0 1
+    1	1 -1 0	0 0 1	1 0	1 1 1
+material.smt|default
+    0	0 0 0	1 0 1	0 1	1 0 1
+    1	1 -1 0	1 0 1	1 0	1 1 1
+    1	1 0 0	1 0 1	1 1	1 1 1
+material.smt|dirty
+    1	1 -1 0	0 0 1	1 0	1 1 1
+    0	0 -1 0	0 0 1	0 0	1 0 1
+    0	0 0 0	0 0 1	0 1	1 0 1
+material.smt|patched
+    1	1 0 0	1 0 1	1 1	1 1 1
+    1	1 -1 0	1 0 1	1 0	1 1 1
+    0	0 0 0	1 0 1	0 1	1 0 1
+end
