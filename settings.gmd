@@ -1,5 +1,6 @@
 graphics:
     resolution 1280 720
-    title "USC Iggesund"
+    title "USC"
 end
 
+server "_dev"

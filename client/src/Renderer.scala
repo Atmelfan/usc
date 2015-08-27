@@ -1,75 +1,23 @@
-package renderer
-
+import java.awt.Font
 import java.io.File
-import javax.vecmath.{Matrix4f, Vector3f}
 
-import org.lwjgl.util.vector
-import org.lwjgl.{BufferUtils, LWJGLException}
+import org.jbox2d.common.Vec2
+import org.lwjgl.LWJGLException
 import org.lwjgl.opengl._
+import org.newdawn.slick.{Color, TrueTypeFont}
+import renderer.{GLutil, RenderResource}
 
-import scala.collection
-import scala.collection.parallel.mutable
-
-/**
- * Created by atmelfan on 2014-09-23.
- */
-
-object GLutil {
-  val renderer = new Renderer()
-
-  def getRenderer = renderer
-
-  def begin[T](mode: Int)(body: => T): T = {
-    GL11.glBegin(mode)
-    try {
-      body
-    }finally {
-      GL11.glEnd()
-    }
-
-  }
-
-  def push[T]()(body: => T): T = {
-    GL11.glPushMatrix()
-    try {
-      body
-    }finally {
-      GL11.glPopMatrix()
-    }
-  }
-
-  def glVertex(x: Float, y: Float, z: Float, s: Float, t: Float): Unit ={
-    GL11.glTexCoord2f(s, t); GL11.glVertex3f(x, y, z)
-  }
-
-  def glDrawSquare(height: Float, width: Float): Unit ={
-    begin(GL11.GL_QUADS){
-      glVertex(-1*width, -1*height, 0, 0, 0)
-      glVertex( 1*width, -1*height, 0, 1, 0)
-      glVertex( 1*width,  1*height, 0, 1, 1)
-      glVertex(-1*width,  1*height, 0, 0, 1)
-    }
-  }
-}
-
-class Camera {
-  var position = new Vector3f()
-
-  def set(vector: Vector3f): Unit ={
-    position.set(vector)
-  }
-
-  def translate(vector: Vector3f): Unit ={
-    position.add(vector)
-  }
-
-  def translateWorld(): Unit ={
-    GL11.glTranslatef(position.x, position.y, position.z)
-  }
-}
 
 class Renderer {
+  var checkresources = false
   fixLwjgl()
+
+  val wfont = new Font("Liberation Mono", Font.PLAIN, 24)
+  var font: TrueTypeFont = null
+
+  def drawText(x: Float, y: Float, s: String, color: Color = Color.green): Unit ={
+    font.drawString(x,y,s,1f,1f)
+  }
 
   def init(width: Int, height: Int, title: String): Unit ={
     try {
@@ -82,21 +30,24 @@ class Renderer {
       case lwjgle: LWJGLException => lwjgle.printStackTrace()
         System.exit(-1)
     }
+
     resize(Display.getWidth, Display.getHeight)
+
     GL11.glEnable(GL11.GL_COLOR_MATERIAL)
-    //GL11.glEnable(GL11.GL_DEPTH_TEST)
     GL11.glEnable(GL11.GL_TEXTURE_2D) // Enable Texture Mapping
+    GL11.glClearColor(0f,0f,0f,0f); // Black Background
     GL11.glDisable(GL11.GL_DITHER)
     GL11.glDepthFunc(GL11.GL_LESS) // Depth function less or equal
     GL11.glEnable(GL11.GL_NORMALIZE) // calculated normals when scaling
-    //GL11.glEnable(GL11.GL_CULL_FACE) // prevent render of back surface
+    GL11.glEnable(GL11.GL_CULL_FACE) // prevent render of back surface
     GL11.glEnable(GL11.GL_BLEND) // Enabled blending
     GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA) // selects blending method
-    GL11.glEnable(GL11.GL_ALPHA_TEST) // allows alpha channels or transparency
+    GL11.glEnable(GL11.GL_ALPHA_TEST) // allows alpha channels or transperancy
+    GL11.glAlphaFunc(GL11.GL_GREATER, 0.1f) // sets aplha function
     GL11.glHint(GL11.GL_PERSPECTIVE_CORRECTION_HINT, GL11.GL_NICEST) // High quality visuals
     GL11.glHint(GL11.GL_POLYGON_SMOOTH_HINT, GL11.GL_NICEST) //  Really Nice Perspective Calculations
-    GL11.glShadeModel(GL11.GL_SMOOTH) // Enable Smooth Shading
-    GL11.glClearColor(0f, 0f, 0f, 0f)
+    GL11.glShadeModel(GL11.GL_SMOOTH) // Enable Smooth Shading'
+    font = new TrueTypeFont(wfont, false)
   }
 
   def resize(width: Int, height: Int): Unit = {
@@ -120,11 +71,6 @@ class Renderer {
     GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT)
     GL11.glLoadIdentity()
     !Display.isCloseRequested
-  }
-
-  val textures = collection.mutable.Map[String, Texture]()
-  def getTexture(name: String, param: Int = GL11.GL_REPEAT, filter: Int = GL11.GL_LINEAR): Texture = {
-    textures.getOrElseUpdate(name, new Texture(new File(name), param, filter))
   }
 
   def fixLwjgl(): Unit = {

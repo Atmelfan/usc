@@ -6,9 +6,6 @@
         <element id="module-output" name="client" />
       </element>
       <element id="directory" name="libraries">
-        <element id="library" level="project" name="jinput" />
-        <element id="library" level="project" name="lwjgl" />
-        <element id="library" level="project" name="lwjgl_util" />
         <element id="library" level="project" name="PNGDecoder" />
         <element id="library" level="application" name="scala-library" />
         <element id="directory" name="natives">

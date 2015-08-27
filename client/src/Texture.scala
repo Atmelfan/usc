@@ -1,6 +1,4 @@
-package renderer
-
-import java.io.{FileInputStream, File}
+import java.io.{File, FileInputStream}
 import java.nio.ByteBuffer
 
 import de.matthiasmann.twl.utils.PNGDecoder
@@ -10,10 +8,19 @@ import org.lwjgl.opengl.GL11
 /**
  * Created by atmelfan on 2014-09-23.
  */
-class Texture(file: File, param: Int, filter: Int) extends RenderResource{
+class Texture(file: File, param: Int, filter: Int) extends Resource{
+  def this(file: File){
+    this(file, GL11.GL_REPEAT, GL11.GL_LINEAR)
+  }
+
+  def this(file: String){
+    this(new File(file), GL11.GL_REPEAT, GL11.GL_LINEAR)
+  }
+
   var (width, height) = (0, 0)
   var id = GL11.glGenTextures()
   load(file, param, filter)
+  //println(id)
 
   def load(file: File, param: Int, filter: Int): Unit ={
     val in = new FileInputStream(file)
@@ -44,10 +51,12 @@ class Texture(file: File, param: Int, filter: Int) extends RenderResource{
     }
   }
 
-  def hotswap(): Unit ={
+  override def reload(): Unit ={
     destroy()
     load(file, param, filter)
   }
+
+  override def name: String = file.getName
 
   def bind[T](target: Int = GL11.GL_TEXTURE_2D, unit: Int = 0)(body: => T): T = {
     GL11.glBindTexture(target, id)
@@ -58,7 +67,7 @@ class Texture(file: File, param: Int, filter: Int) extends RenderResource{
     }
   }
 
-  def destroy(){
+  override def destroy(){
     GL11.glDeleteTextures(id)
   }
 

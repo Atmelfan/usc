@@ -1,22 +1,32 @@
-import java.io.File
+import org.jbox2d.common.Vec2
 
-import org.lwjgl.opengl.GL11
-import renderer.{GLutil, Texture}
 
 /**
  * Created by atmelfan on 2014-12-22.
  */
-class EntityShip extends EntityPhysics{
-  val temptexture = new Texture(new File("resources/textures/deadalus.png"), GL11.GL_REPEAT, GL11.GL_NEAREST)
+object EntityShip {
+  val RCS_RIGHT = 0x01
+  val RCS_LEFT = 0x02
+  val RCS_FORWARD = 0x04
+  val RCS_BACKWARD = 0x08
+}
 
-  override def debugDraw(): Unit = {
-    GLutil.push(){
-      val pos = getPosition
-      GL11.glTranslatef(pos.x, pos.y, pos.z)
-      temptexture.bind(){
-        GLutil.glDrawSquare(163, 100)
-      }
+
+class EntityShip(space: Space) extends Entity(space){
+  override def spriteName: String = "deadalus.gmd"
+
+  class Thruster(offset: Vec2, dir: Int){
+    def activate(head: Vec2, force: Float): Unit ={
+
     }
-    super.debugDraw()
   }
+
+  def addThruster(offset: Vec2, dir: Int): Unit ={
+
+  }
+
+  def rcs(dir: Vec2, force: Float): Unit ={
+
+  }
+
 }

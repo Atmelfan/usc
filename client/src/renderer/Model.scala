@@ -1,21 +1,37 @@
 package renderer
 
-import java.io.File
-
 /**
- * Created by atmelfan on 2014-10-04.
+ * Created by atmelfan on 2015-01-03.
  */
-abstract class Model(file: File) {
-  val STATIC = 0
-  val ANIMATED = 1
+trait Model extends RenderResource{
+  def draw(frame: Float): Unit
 
-  def isAnimated = false
+  def draw(animation: ModelAnimation): Unit
 
-  def parse(file: File): Unit
+  def newAnimation: ModelAnimation
 
-  def compile(): Unit
+  class Frame {
+    var start = 0
+    var end = 0
+    var framerate = 0
+  }
 
-  def draw(frame: Float = 0): Unit
+  class ModelAnimation{
 
+    def reset(): Unit ={
+    }
 
+    def triggerAnimation(s: String): Unit ={
+
+    }
+
+    def update(): Unit ={
+
+    }
+
+    def getFrame: Int ={
+      0
+    }
+  }
 }
+
