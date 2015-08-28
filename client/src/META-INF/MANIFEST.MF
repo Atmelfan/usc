@@ -1,7 +1,5 @@
 Manifest-Version: 1.0
-Class-Path: libraries/PNGDecoder.jar libraries/jinput.jar libraries/lw
- jgl_util.jar libraries/scala-library.jar libraries/scala-swing.jar li
- braries/scala-actors.jar libraries/lwjgl.jar libraries/jbullet.jar li
- braries/vecmath.jar
+Class-Path: libraries/PNGDecoder.jar libraries/jinput.jar libraries/lwjgl_util.jar libraries/scala-library.jar
+ libraries/scala-swing.jar libraries/scala-actors.jar libraries/lwjgl.jar libraries/jbullet.jar libraries/vecmath.jar
 Main-Class: USC_client
 
