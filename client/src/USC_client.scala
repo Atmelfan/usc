@@ -49,7 +49,7 @@ class USC_client {
         g.add("resolution 1280 720")
         g.add("title USC")
         config.add("server _dev")
-        config.dump(new File("test.gmd"))
+        config.dump(new File("settings.gmd"))
     }
     USC_client.resources = new ResourceManager(new File("servers/" + config("server").getString(1)))
     renderer.init(config("graphics")("resolution").getInt(1), config("graphics")("resolution").getInt(2), config("graphics")("title").getString(1))

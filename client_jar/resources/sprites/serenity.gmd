@@ -1,0 +1,15 @@
+texture "serenity.png"
+atlas 1 1
+scale 1.0
+shader "default.vsh" "default.fsh"
+
+fixture:
+    density 1
+    friction 1
+    restitution 1
+    shape rect 174 256
+end
+
+animations:
+    idle 0 0 0
+end

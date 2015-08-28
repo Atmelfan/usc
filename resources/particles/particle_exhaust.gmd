@@ -1,0 +1,7 @@
+texture "explosion.png"
+atlas 9 9
+scale 0.5
+shader "default.vsh" "default.fsh"
+animations:
+    #none
+end

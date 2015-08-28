@@ -1,0 +1,6 @@
+graphics:
+    resolution 1280 720
+    title "USC"
+end
+
+server "_dev"

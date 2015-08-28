@@ -1,0 +1,15 @@
+texture "taser.png"
+atlas 1 1
+scale 0.5
+shader "default.vsh" "default.fsh"
+
+fixture:
+    density 1
+    friction 1
+    restitution 1
+    shape rect 10 6
+end
+
+animations:
+    idle 0 0 0
+end

@@ -1,0 +1,16 @@
+texture "asteroid.png"
+atlas 1 1
+scale 1.0
+shader "default.vsh" "default.fsh"
+
+fixture:
+    density 1
+    friction 1
+    restitution 1
+    shape circ 64 0 0
+end
+
+animations:
+#   <name> <start> <end> <fps>
+    idle 0 0 0
+end

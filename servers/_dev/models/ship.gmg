@@ -1,0 +1,31 @@
+shader test.shd
+texture test.png
+
+vertices:
+    -10  80
+     10  80
+     10 -80
+    -10 -80
+end
+
+physics:
+    mass 10000
+    friction 0.3
+    polygon:
+        0 0
+        1 0
+        1 1
+        0 1
+    end
+end
+
+
+animations:
+    idle:
+        #<start> <end> <framerate>
+        0 9 5
+    end
+    fire:
+        10 15 5
+    end
+end

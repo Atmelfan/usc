@@ -1,0 +1,13 @@
+icon: taser.png
+throw_damage: 15
+type weapon:
+
+end
+
+type armour:
+
+end
+
+type hat:
+
+end

@@ -1,0 +1,42 @@
+#
+# DECK 0
+#
+
+gravity 0 0 0
+background "resources/textures/space.png"
+entities:
+    asteroid "asteroid_001":
+        position -200 100
+        mass 1000
+    end
+    asteroid "asteroid_002":
+        position 100 -350
+        rotation -0.5
+        mass 750
+    end
+    prop "test":
+        target 100 -500
+        position 120 500
+        rotation -0.5
+        sprite "missile.gmd"
+        on_press "say hello"
+        mass 15
+    end
+end
+
+
+
+fixtures:
+    "edge":
+        density 1
+        friction 1
+        restitution 0
+        shape loop:
+            -1500  -1500
+            -1500   1500
+             1500   1500
+             1500  -1500
+        end
+        execute ""
+    end
+end

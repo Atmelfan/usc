@@ -1,0 +1,19 @@
+texture "char.png"
+atlas 9 4
+scale 1.0
+shader "default.vsh" "default.fsh"
+
+fixture:
+    density 1
+    friction 1
+    restitution 1
+    shape rect 25 32
+end
+
+animations:
+    forward 0   8   12
+    left    9   17  12
+    back    18  26  12
+    right   27  35  12
+end
+
