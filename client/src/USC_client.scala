@@ -9,6 +9,7 @@ import org.lwjgl.opengl._
 import renderer.GLutil
 
 import scala.beans.BeanProperty
+import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
 
@@ -37,6 +38,10 @@ class USC_client {
   var time = 0L
   var chat = new Chat(renderer)
   var focusEntity: Entity = null
+  var gui = new Gui(renderer)
+
+  var guis = new mutable.Stack[Gui]()
+  addGui(new GuiChat(renderer))
 
   def run(): Unit = {
     println("OS name: " + System.getProperty("os.name") + " " + System.getProperty("os.version"))
@@ -56,6 +61,7 @@ class USC_client {
     space = new Space(renderer, new File("servers/" + config("server").getString(1) + "/space.gmd"), this)
     player = new EntityPlayer(space)
     space.addEntity(player)
+    addGui(new GuiProp(renderer))
     val background = USC_client.resources.getResource[Texture]("space.png", ResourceType.Texture){
       new Texture(_)
     }
@@ -74,6 +80,7 @@ class USC_client {
           if(eventkey == Keyboard.KEY_F3){
             debug = !debug
           }
+          guis.top.onKey(eventkey, eventchar)
         }
       }
 
@@ -82,13 +89,20 @@ class USC_client {
         val eventstate = Mouse.getEventButtonState
         if(eventstate){
           space.action()
+          guis.top.onPress()
         }
+
       }
       val t = Sys.getTime
       if(t - time >= 50){
         player.control()
         space.update()
         chat.update()
+        guis.foreach(_.update())
+        if(!guis.top.open){
+          guis.pop()
+        }
+
         time = t
       }
 
@@ -100,12 +114,17 @@ class USC_client {
         background.bind(){
           GLutil.glDrawSquare(background.height/2, background.width/2)
         }
-        chat.draw()
-        GL11.glTranslatef(-focus.x, -focus.y,0)
-        space.draw()
-        if(debug){
-          space.drawDebug()
+        GLutil.push(){
+          GL11.glTranslatef(-focus.x, -focus.y,0)
+          space.draw()
+          if(debug){
+            space.drawDebug()
+          }
+
         }
+        chat.draw()
+        guis.foreach(_.draw())
+
 
 
       }
@@ -124,5 +143,9 @@ class USC_client {
 
   }
 
+  def addGui(gui: Gui): Unit ={
+    gui.init()
+    guis.push(gui)
+  }
 
 }

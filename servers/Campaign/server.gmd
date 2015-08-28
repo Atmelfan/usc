@@ -1,0 +1,4 @@
+name "Campaign"
+description "Singleplayer Campaign"
+ip "localhost"
+local true

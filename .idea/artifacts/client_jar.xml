@@ -11,7 +11,6 @@
         <element id="directory" name="natives">
           <element id="dir-copy" path="$PROJECT_DIR$/libraries/natives" />
         </element>
-        <element id="library" level="project" name="jbullet" />
         <element id="library" level="project" name="vecmath" />
       </element>
       <element id="directory" name="resources">

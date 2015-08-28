@@ -9,6 +9,7 @@ import renderer.{GLutil, RenderResource}
 
 
 class Renderer {
+
   var checkresources = false
   fixLwjgl()
 
@@ -39,7 +40,7 @@ class Renderer {
     GL11.glDisable(GL11.GL_DITHER)
     GL11.glDepthFunc(GL11.GL_LESS) // Depth function less or equal
     GL11.glEnable(GL11.GL_NORMALIZE) // calculated normals when scaling
-    GL11.glEnable(GL11.GL_CULL_FACE) // prevent render of back surface
+   // GL11.glEnable(GL11.GL_CULL_FACE) // prevent render of back surface
     GL11.glEnable(GL11.GL_BLEND) // Enabled blending
     GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA) // selects blending method
     GL11.glEnable(GL11.GL_ALPHA_TEST) // allows alpha channels or transperancy
